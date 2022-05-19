@@ -1,0 +1,73 @@
+{% extends 'layout.html' %}
+{% block body %}
+<form action="/data" method="POST" >
+<div class="row">
+    <div class="col-md-5">
+        <div class="card card-body">
+            <div class="title">
+                <h3 id="titulo"> Opciones seleccion</h3>
+            </div>
+            <div class="description">
+                <p1>Elige las opciones</p1>
+            </div>
+            
+              <div class="selectSim">
+                <select name="sim">
+                    <option value="">Tipo Documento</option>
+                    <option value="NIT">NIT</option> 
+                    <option value="cc">cc</option>
+                    <option value="Pasaporte">Pasaporte</option>   
+                </select>
+              </div>
+              <div class="selectConfig">
+                <input type="text" name="NumeroCedula" placeholder="NumeroCedula"><br>
+              </div>
+              <div class="button">
+              <button type="submit" class="btn btn-dark btn-lg">Buscar</button>  
+              </div>
+            </form>
+            
+        </div>
+            
+        </body>
+    </div>
+    <div class="col-md-7">
+        <table class="table tabke-striped table-bordered bg-white table-sm">
+            <thead>
+                <tr>
+                    <td>Numero Documento</td>
+                    <td>Nombre</td>
+                    <td>Apellido</td>
+                    <td>Correo</td>
+                    <td>Telefono</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for clientes_informacion in contacts %}
+                    <tr>
+                        <td>{{clientes_informacion.1}}</td>
+                        <td>{{clientes_informacion.2}}</td>
+                        <td>{{clientes_informacion.3}}</td>
+                        <td>{{clientes_informacion.4}}</td>
+                        <td>{{clientes_informacion.5}}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <div class="button">
+            <button type="submit" class="btn btn-dark btn-lg">Generar Reporte Excel</button>  
+        </div>
+    </div>
+</div>
+{% with messages=get_flashed_messages()%}   
+{%if messages%}
+{% for message in messages  %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+{% endfor %}
+{% endif %}
+{%endwith%}
+
+{% endblock  %}

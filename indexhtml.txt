@@ -1,0 +1,72 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<div class="row">
+    <div class="col-md-5">
+        <div class="card card-body">
+            <div class="title">
+                <h3 id="titulo"> Opciones seleccion</h3>
+            </div>
+            <div class="description">
+                <p1>Elige las opciones</p1>
+            </div>
+            <form method="post" action="/data">
+              <div class="selectSim">
+                <span STYLE="font-size:14.0pt"> Criterio</span>
+                <select name="sim">
+                    <option value="">Choose</option>
+                    <option value="amount">Amount</option> 
+                    <option value="requestedAmount">requestedAmount</option>  
+                </select>
+              </div>
+              <div class="selectConfig">
+                <span STYLE="font-size:14.0pt"> Orden </span>
+                <select name="config">
+                    <option value="">Choose</option>
+                    <option value="ASC">Mayor a menor</option> 
+                    <option value="DESC">Menor a Mayor </option> 
+                </select>
+              </div>
+              <div class="button">
+              <button type="submit" class="btn btn-dark btn-lg">Consultar</button>  
+              </div>
+            </form>
+            
+        </div>
+            
+        </body>
+    </div>
+    <div class="col-md-7">
+        <table class="table tabke-striped table-bordered bg-white table-sm">
+            <thead>
+                <tr>
+                    <td>name</td>
+                    <td>amount</td>
+                    <td>requestedAmount</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for campaign in contacts %}
+                    <tr>
+                        <td>{{campaign.1}}</td>
+                        <td>{{campaign.2}}</td>
+                        <td>{{campaign.3}}</td>
+                    </tr>
+                {% endfor %}
+                
+                <a href="/ASC" class="btn btn-danger">Up</a>
+                <a href="/DESC" class="btn btn-secondary">Down</a>
+            </tbody>
+        </table>
+    </div>
+</div>
+{% with messages=get_flashed_messages()%}   
+{%if messages%}
+{% for message in messages  %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        {{message}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+{% endfor %}
+{% endif %}
+{%endwith%}
